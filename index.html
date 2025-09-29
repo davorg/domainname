@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brandable Domain Name Generator</title>
+  <style>
+    :root{
+      --bg: #0b0d10;        /* deep slate */
+      --panel: #131720;     /* card */
+      --muted: #7b8ba7;
+      --text: #e8eef7;
+      --accent: #7bd88f;    /* soft green */
+      --accent-2: #78a9ff;  /* cornflower */
+      --danger: #ff6b6b;
+      --ring: rgba(123, 216, 143, .6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, #1f2740, transparent), var(--bg);
+      color:var(--text);
+    }
+    header{padding:24px 20px 8px; text-align:center}
+    header h1{margin:0; font-size: clamp(22px, 4vw, 34px); letter-spacing:.3px}
+    header p{margin:.35rem 0 0; color:var(--muted)}
+
+    .wrap{max-width:1100px; margin:0 auto; padding:16px}
+
+    .panel{background:var(--panel); border:1px solid #1d2330; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+    .controls{display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); padding:16px}
+    .controls .field{display:flex; flex-direction:column; gap:6px}
+    label{font-weight:600; color:#c9d6ea}
+    .muted{color:var(--muted); font-size:13px}
+    input[type="number"], select, input[type="text"]{
+      background:#0e1320; border:1px solid #222b3f; color:var(--text); padding:10px 12px; border-radius:10px; outline:none;
+    }
+    input[type="checkbox"]{transform:translateY(1px)}
+    .row{display:flex; gap:14px; align-items:center}
+
+    .actions{display:flex; gap:12px; flex-wrap:wrap; padding:16px; border-top:1px solid #1d2330; background:#0f1422; border-radius:0 0 16px 16px}
+    button{cursor:pointer; border:none; border-radius:12px; padding:12px 14px; font-weight:700; letter-spacing:.2px}
+    .primary{background:var(--accent); color:#0a0d12}
+    .secondary{background:#141b2b; color:#d9e4ff; border:1px solid #25304a}
+    .danger{background:var(--danger); color:#041014}
+    button:focus{outline:2px solid var(--ring); outline-offset:2px}
+
+    .grid{display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top:18px}
+    .card{background:var(--panel); border:1px solid #1d2330; border-radius:16px; padding:14px; display:flex; flex-direction:column; gap:10px}
+    .domain{font-size:22px; font-weight:800; letter-spacing:.3px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{font-size:12px; padding:6px 8px; border-radius:999px; border:1px solid #263044; color:#cfe0ff}
+    .card .row{justify-content:space-between}
+
+    .fav{background:transparent; border:1px solid #2a344c; color:#b6c8ff}
+    .fav[aria-pressed="true"]{border-color:var(--accent-2); color:#00122a; background:var(--accent-2)}
+
+    .toolbar{display:flex; gap:10px; align-items:center; justify-content:space-between; margin:18px 2px}
+    .toolbar .left{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+
+    .foot{margin:32px 0 60px; text-align:center; color:var(--muted); font-size:13px}
+    a{color:var(--accent-2); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .tiny{font-size:12px; color:var(--muted)}
+    .hint{font-size:12px; color:#a6b8d8}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Brandable Domain Name Generator</h1>
+    <p>Create pronounceable, made‑up names that feel like English words.</p>
+  </header>
+
+  <div class="wrap">
+    <section class="panel" aria-labelledby="options">
+      <div class="controls">
+        <div class="field">
+          <label for="count">How many names?</label>
+          <input id="count" type="number" min="1" max="200" value="48"/>
+          <div class="muted">Up to 200 per batch.</div>
+        </div>
+        <div class="field">
+          <label> syllables</label>
+          <div class="row">
+            <label class="muted">min</label>
+            <input id="minSyl" type="number" min="1" max="4" value="2"/>
+            <label class="muted">max</label>
+            <input id="maxSyl" type="number" min="1" max="4" value="3"/>
+          </div>
+          <div class="muted">1–4 syllables; 2–3 reads most brandable.</div>
+        </div>
+        <div class="field">
+          <label>length (letters)</label>
+          <div class="row">
+            <label class="muted">min</label>
+            <input id="minLen" type="number" min="3" max="16" value="5"/>
+            <label class="muted">max</label>
+            <input id="maxLen" type="number" min="3" max="16" value="10"/>
+          </div>
+          <div class="muted">Typical sweet‑spot is 5–10.</div>
+        </div>
+        <div class="field">
+          <label for="tlds">Show with TLD</label>
+          <select id="tlds" multiple size="5" aria-label="Top level domains">
+            <option value=".com" selected>.com</option>
+            <option value=".co.uk" selected>.co.uk</option>
+            <option value=".io">.io</option>
+            <option value=".ai">.ai</option>
+            <option value=".dev">.dev</option>
+            <option value=".app">.app</option>
+          </select>
+          <div class="muted">Hold Ctrl/Cmd to select multiple.</div>
+        </div>
+        <div class="field">
+          <label for="seed">Seed (optional)</label>
+          <input id="seed" type="text" placeholder="Lock results with a seed e.g. 'balham'"/>
+          <div class="muted">Same seed + options ⇒ same list.</div>
+        </div>
+        <div class="field">
+          <label>Rules</label>
+          <div class="row"><input id="ruleSoft" type="checkbox" checked> <span class="hint">Prefer softer sounds</span></div>
+          <div class="row"><input id="ruleNoTriple" type="checkbox" checked> <span class="hint">Avoid 3 vowels/consonants in a row</span></div>
+          <div class="row"><input id="ruleNoDouble" type="checkbox"> <span class="hint">Avoid doubled letters</span></div>
+          <div class="row"><input id="ruleSuffix" type="checkbox"> <span class="hint">Sometimes add -ly, -io, -ify, -able</span></div>
+          <div class="row"><input id="ruleYvowel" type="checkbox" checked> <span class="hint">Treat “y” as a vowel sometimes</span></div>
+        </div>
+        <div class="field">
+          <label for="ban">Avoid substrings</label>
+          <input id="ban" type="text" placeholder="Comma-separated (e.g. corp, tech, xz)"/>
+          <div class="muted">Basic safety filter runs automatically.</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnGen" class="primary">Generate</button>
+        <button id="btnClear" class="secondary">Clear</button>
+        <button id="btnExport" class="secondary">Export CSV</button>
+        <span class="tiny" id="status" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="left">
+        <span class="muted">Click ★ to pin favourites. Click the name to copy.</span>
+      </div>
+      <div>
+        <button id="showFavs" class="secondary">Show favourites</button>
+      </div>
+    </div>
+
+    <section id="results" class="grid" aria-live="polite" aria-busy="false"></section>
+
+    <p class="foot">Tip: To check availability, click a domain’s “Check” link → it opens a registrar search (no tracking here). Names are generated locally in your browser.</p>
+  </div>
+
+  <script>
+    // ————— Utilities —————
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+    function mulberry32(a){
+      return function(){let t = a += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296}
+    }
+
+    function seedFromString(s){
+      if(!s) return Math.floor(Math.random()*2**31);
+      let h = 2166136261 >>> 0; for(let i=0;i<s.length;i++){h ^= s.charCodeAt(i); h = Math.imul(h, 16777619)}; return h >>> 0;
+    }
+
+    function pick(rng, arr){ return arr[Math.floor(rng()*arr.length)]; }
+
+    function sampleWeighted(rng, pairs){
+      const total = pairs.reduce((a,[,w])=>a+w,0);
+      let t = rng()*total; for(const [val,w] of pairs){ if((t-=w) <= 0) return val; } return pairs.at(-1)[0];
+    }
+
+    function copy(text){ navigator.clipboard.writeText(text).then(()=>toast(`Copied “${text}”`)) }
+
+    function toast(msg){
+      const s = $('#status'); s.textContent = msg; clearTimeout(s._t); s._t = setTimeout(()=> s.textContent = '', 1800);
+    }
+
+    // Simple naughty-word guard (very small, not exhaustive)
+    const BLOCK = ["sex","porn","hitler","naz","kkk","fuck","shit","rape","slut","cunt","twat","prick","ass","arse","nazi","islam","jew","christ","allah"]; // avoid obvious baggage
+
+    // ————— Phonotactics —————
+    const ONSETS_CORE = [
+      'b','br','bl','c','ch','cl','cr','d','dr','f','fl','fr','g','gl','gr','h','j','k','kl','kr','l','m','n','p','pl','pr','ph','qu','r','s','sc','scr','sh','sk','sl','sm','sn','sp','spr','st','str','sw','t','tr','tw','v','w','y','z','thr','th'
+    ];
+
+    const ONSETS_SOFT = ['m','n','l','r','w','y','fl','pl','sl','sm','sn','sw','sh','ch','gl','cl'];
+
+    const NUCLEI = ['a','e','i','o','u','aa','ai','au','ea','ee','ei','ia','ie','io','oa','oe','oi','oo','ou','ua','ue','ui'];
+
+    const CODAS = [
+      '', '', '', // open syllables more common
+      'b','c','ck','ct','d','f','ft','g','gh','k','ks','l','ld','lf','lk','lm','lp','ls','lt','m','mp','n','nd','ng','nk','ns','nt','p','pt','r','rb','rc','rd','rf','rk','rl','rm','rn','rp','rs','rt','rv','s','sk','st','t','th','ts','v','x','z'
+    ];
+
+    const BRAND_SUFFIXES = ['ly','io','ify','able'];
+
+    function isPronounceable(s, opts){
+      if(opts.noTriple){ if(/[bcdfghjklmnpqrstvwxyz]{3}/i.test(s) || /[aeiou]{3}/i.test(s)) return false; }
+      if(opts.noDouble){ if(/([a-z])\1/i.test(s)) return false; }
+      // Disallow awkward clusters
+      if(/q[^u]/i.test(s)) return false;
+      if(/[^s]h[bcdfgjklmnpqrtvwxyz]/i.test(s)) return false; // sh + hard cons (rough filter)
+      if(/^x/i.test(s)) return false;
+      if(/zz[^aoueiy]/i.test(s)) return false;
+      return true;
+    }
+
+    function banned(name, extra){
+      const low = name.toLowerCase();
+      for(const b of BLOCK) if(low.includes(b)) return true;
+      for(const b of extra) { const x=b.trim().toLowerCase(); if(x && low.includes(x)) return true; }
+      return false;
+    }
+
+    function buildSyllable(rng, opts){
+      const onsetPool = opts.preferSoft ? [...ONSETS_CORE, ...ONSETS_SOFT, ...ONSETS_SOFT] : ONSETS_CORE;
+      const onset = rng() < .85 ? pick(rng, onsetPool) : ''; // allow null onset
+
+      const nuclei = [...NUCLEI];
+      if(!opts.yVowel){ /* leave as is */ } else { nuclei.push('y'); if(rng()<.3) nuclei.push('ey','ay','oy','uy'); }
+      const nucleus = pick(rng, nuclei);
+
+      const coda = pick(rng, CODAS);
+      return onset + nucleus + coda;
+    }
+
+    function titlecase(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    function generateOne(rng, cfg){
+      let tries = 0;
+      for(; tries < 200; tries++){
+        const syls = Math.floor(rng()*(cfg.maxSyl-cfg.minSyl+1)) + cfg.minSyl;
+        let name = '';
+        for(let i=0;i<syls;i++) name += buildSyllable(rng, cfg);
+
+        // Occasionally add a brandy suffix
+        if(cfg.useSuffix && rng() < 0.35){ name += pick(rng, BRAND_SUFFIXES); }
+
+        name = name.toLowerCase();
+
+        // Normalise: avoid impossible j + i etc.
+        name = name.replace(/quu/g,'qu').replace(/iii/g,'ii').replace(/([aeiou])\1{2,}/g,'$1$1');
+
+        if(name.length < cfg.minLen || name.length > cfg.maxLen) continue;
+        if(!isPronounceable(name, {noTriple: cfg.noTriple, noDouble: cfg.noDouble})) continue;
+        if(banned(name, cfg.banList)) continue;
+        return name;
+      }
+      return null;
+    }
+
+    function buildList(){
+      const count = clamp(+$('#count').value, 1, 200);
+      const minSyl = clamp(+$('#minSyl').value, 1, 4);
+      const maxSyl = clamp(+$('#maxSyl').value, 1, 4);
+      const minLen = clamp(+$('#minLen').value, 3, 16);
+      const maxLen = clamp(+$('#maxLen').value, 3, 16);
+      const preferSoft = $('#ruleSoft').checked;
+      const noTriple = $('#ruleNoTriple').checked;
+      const noDouble = $('#ruleNoDouble').checked;
+      const useSuffix = $('#ruleSuffix').checked;
+      const yVowel = $('#ruleYvowel').checked;
+      const seedStr = $('#seed').value.trim();
+      const rng = mulberry32(seedFromString(seedStr || `${Date.now()}-${Math.random()}`));
+      const banList = $('#ban').value.split(',');
+
+      const cfg = {minSyl, maxSyl, minLen, maxLen, preferSoft, noTriple, noDouble, useSuffix, yVowel, banList};
+
+      const out = new Set();
+      let guard = 0;
+      while(out.size < count && guard < count*50){
+        const n = generateOne(rng, cfg); if(n) out.add(n); guard++;
+      }
+      return [...out];
+    }
+
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+    function selectedTLDs(){
+      return Array.from($('#tlds').selectedOptions).map(o=>o.value);
+    }
+
+    function render(list){
+      const tlds = selectedTLDs();
+      const frag = document.createDocumentFragment();
+      list.forEach(name => {
+        const card = document.createElement('article');
+        card.className = 'card';
+
+        const domRow = document.createElement('div');
+        domRow.className = 'row';
+        const span = document.createElement('button');
+        span.className = 'domain secondary';
+        span.textContent = titlecase(name);
+        span.title = 'Click to copy the bare name';
+        span.onclick = () => copy(name);
+        domRow.appendChild(span);
+
+        const fav = document.createElement('button');
+        fav.className = 'fav'; fav.setAttribute('aria-pressed','false'); fav.textContent = '★';
+        fav.title = 'Pin to favourites';
+        fav.onclick = () => {
+          const on = fav.getAttribute('aria-pressed') === 'true';
+          fav.setAttribute('aria-pressed', String(!on));
+          toggleFavourite(name, !on);
+        };
+        domRow.appendChild(fav);
+        card.appendChild(domRow);
+
+        const chips = document.createElement('div'); chips.className = 'chips';
+        for(const t of tlds){
+          const chip = document.createElement('span'); chip.className = 'chip';
+          chip.textContent = name + t; chip.style.cursor='pointer'; chip.title = 'Click to copy with TLD';
+          chip.onclick = () => copy(name + t);
+          chips.appendChild(chip);
+        }
+        card.appendChild(chips);
+
+        const actions = document.createElement('div'); actions.className = 'row';
+        const a = document.createElement('a'); a.href = registrarUrl(name); a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Check availability';
+        const small = document.createElement('span'); small.className = 'tiny'; small.textContent = 'Not an affiliate link';
+        actions.appendChild(a); actions.appendChild(small);
+        card.appendChild(actions);
+
+        frag.appendChild(card);
+      });
+      const res = $('#results'); res.setAttribute('aria-busy','true'); res.innerHTML=''; res.appendChild(frag); res.setAttribute('aria-busy','false');
+    }
+
+    function registrarUrl(name){
+      // UK‑friendly registrar search (123 Reg). Spaces safely encoded; multiple TLDs supported in their UI.
+      const q = encodeURIComponent(name);
+      return `https://www.123-reg.co.uk/domain-names/search/?domain=${q}`;
+    }
+
+    function exportCSV(){
+      const rows = $$('#results .card .domain').map(btn => btn.textContent.toLowerCase());
+      if(!rows.length){ toast('Nothing to export'); return; }
+      const tlds = selectedTLDs();
+      const header = ['name', ...tlds].join(',');
+      const lines = [header];
+      for(const name of rows){
+        const cols = [name, ...tlds.map(t => name+t)];
+        lines.push(cols.join(','));
+      }
+      const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='brandable-names.csv'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 2500);
+    }
+
+    // ——— favourites ———
+    const FAV_KEY = 'brandable:favs';
+    function loadFavs(){ try{ return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); }catch{ return new Set(); } }
+    function saveFavs(set){ localStorage.setItem(FAV_KEY, JSON.stringify([...set])); }
+    const favs = loadFavs();
+    function toggleFavourite(name, on){ if(on) favs.add(name); else favs.delete(name); saveFavs(favs); }
+
+    function showFavs(){
+      if(!favs.size){ toast('No favourites yet'); return; }
+      render([...favs]);
+    }
+
+    // ——— Bindings ———
+    $('#btnGen').addEventListener('click', ()=>{ render(buildList()); });
+    $('#btnClear').addEventListener('click', ()=>{ $('#results').innerHTML=''; toast('Cleared'); });
+    $('#btnExport').addEventListener('click', exportCSV);
+    $('#showFavs').addEventListener('click', showFavs);
+
+    // Generate an initial batch
+    render(buildList());
+  </script>
+</body>
+</html>
+
