@@ -1,0 +1,233 @@
+    :root {
+      --bg: #0b0d10;        /* deep slate */
+      --panel: #131720;     /* card */
+      --muted: #7b8ba7;
+      --text: #e8eef7;
+      --accent: #7bd88f;    /* soft green */
+      --accent-2: #78a9ff;  /* cornflower */
+      --danger: #ff6b6b;
+      --ring: rgba(123, 216, 143, .6);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, #1f2740, transparent), var(--bg);
+      color:var(--text);
+    }
+
+    header {
+      padding: 24px 20px 8px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(22px, 4vw, 34px);
+      letter-spacing: .3px;
+    }
+
+    header p {
+      margin: .35rem 0 0;
+      color: var(--muted);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid #1d2330;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+
+    .controls {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      padding: 16px;
+    }
+
+    .controls .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #c9d6ea;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    input[type="number"],
+    select,
+    input[type="text"] {
+      background: #0e1320;
+      border: 1px solid #222b3f;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input[type="checkbox"] {
+      transform: translateY(1px);
+    }
+
+    .row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 16px;
+      border-top: 1px solid #1d2330;
+      background: #0f1422;
+      border-radius: 0 0 16px 16px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #0a0d12;
+    }
+
+    .secondary {
+      background: #141b2b;
+      color: #d9e4ff;
+      border: 1px solid #25304a;
+    }
+
+    .danger {
+      background: var(--danger);
+      color: #041014;
+    }
+
+    button:focus {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      margin-top: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid #1d2330;
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .domain {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 12px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid #263044;
+      color: #cfe0ff;
+    }
+
+    .card .row {
+      justify-content: space-between;
+    }
+
+    .fav {
+      background: transparent;
+      border: 1px solid #2a344c;
+      color: #b6c8ff;
+    }
+
+    .fav[aria-pressed="true"] {
+      border-color: var(--accent-2);
+      color: #00122a;
+      background: var(--accent-2);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 2px;
+    }
+
+    .toolbar .left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .foot {
+      margin: 32px 0 60px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .tiny {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #a6b8d8;
+    }
+    
