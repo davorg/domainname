@@ -230,6 +230,40 @@
       font-size: 12px;
       color: #a6b8d8;
     }
+
+/* Brand header */
+header.brand{
+  display:flex;
+  align-items:center;         /* centres logo with the title line */
+  gap:16px;
+  padding:24px 20px 8px;
+  justify-content: center
+}
+
+.brand__logo{
+  width:96px;                 /* ~3× your earlier 32px */
+  height:96px;
+  border-radius:12px;
+  flex:0 0 auto;
+}
+
+.brand__text h1{
+  margin:0;
+  font-size:clamp(22px, 4vw, 34px);
+  letter-spacing:.3px;
+}
+
+.brand__text p{
+  margin:.35rem 0 0;
+  color:var(--muted);
+}
+
+/* Small screens: reduce a touch and allow wrap */
+@media (max-width: 560px){
+  header.brand{ gap:12px; }
+  .brand__logo{ width:64px; height:64px; }
+}
+
     
 
 /* Added: quality radios and pattern anchoring layout */
