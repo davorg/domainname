@@ -231,3 +231,53 @@
       color: #a6b8d8;
     }
     
+
+/* Brand header */
+header.brand{
+  display:flex;
+  align-items:center;         /* centres logo with the title line */
+  gap:16px;
+  padding:24px 20px 8px;
+  justify-content: center;
+}
+
+.brand__logo{
+  width:96px;                 /* ~3× your earlier 32px */
+  height:96px;
+  border-radius:12px;
+  flex:0 0 auto;
+}
+
+.brand__text h1{
+  margin:0;
+  font-size:clamp(22px, 4vw, 34px);
+  letter-spacing:.3px;
+}
+
+.brand__text p{
+  margin:.35rem 0 0;
+  color:var(--muted);
+}
+
+/* Small screens: reduce a touch and allow wrap */
+@media (max-width: 560px){
+  header.brand{ gap:12px; }
+  .brand__logo{ width:64px; height:64px; }
+}
+
+
+header .logo:hover { transform: scale(1.03); opacity: 1; }
+header .logo img { display:block; border-radius: 8px; }
+@media (max-width: 560px){
+  header .logo { left: 10px; top: 14px; }
+}
+
+header .logo::after{
+  content:""; position:absolute; inset:-6px;
+  border-radius:12px; box-shadow:0 0 0 0 rgba(123,216,143,.0);
+  transition: box-shadow .2s ease;
+}
+header .logo:hover::after{
+  box-shadow:0 0 18px 4px rgba(120,169,255,.18);
+}
+
