@@ -14,15 +14,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brandable Domain Name Generator</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-  <header class="brand">
-    <img class="brand__logo" src="/img/logo-mark.svg" alt="" width="96" height="96" />
-    <div class="brand__text">
-      <h1>Brandable Domain Name Generator</h1>
-      <p>Create pronounceable, made-up names that feel like English words.</p>
-    </div>
+  <header>
+    <h1>Brandable Domain Name Generator</h1>
+    <p>Create pronounceable, made‑up names that feel like English words.</p>
   </header>
 
   <div class="wrap">
@@ -71,6 +67,25 @@
           <div class="muted">Same seed + options ⇒ same list.</div>
         </div>
         <div class="field">
+          <label for="flavour">Flavour</label>
+          <select id="flavour" aria-label="Language flavour">
+            <option value="english" selected>English</option>
+            <option value="romance">Romance</option>
+            <option value="nordic">Nordic</option>
+          </select>
+          <div class="muted">Vary the phonotactics subtly.</div>
+        </div>
+        <div class="field">
+          <label>Quality</label>
+          <div class="quality">
+            <label><input type="radio" name="quality" id="qLow" value="low"> Low</label>
+            <label><input type="radio" name="quality" id="qMed" value="med" checked> Medium</label>
+            <label><input type="radio" name="quality" id="qHigh" value="high"> High</label>
+          </div>
+          <div class="muted">Higher quality = stricter word-likeness.</div>
+        </div>
+    
+        <div class="field">
           <label>Rules</label>
           <div class="row"><input id="ruleSoft" type="checkbox" checked> <span class="hint">Prefer softer sounds</span></div>
           <div class="row"><input id="ruleNoTriple" type="checkbox" checked> <span class="hint">Avoid 3 vowels/consonants in a row</span></div>
@@ -83,6 +98,16 @@
           <input id="ban" type="text" placeholder="Comma-separated (e.g. corp, tech, xz)"/>
           <div class="muted">Basic safety filter runs automatically.</div>
         </div>
+        <div class="field">
+          <label>Pattern anchoring</label>
+          <div class="stack">
+            <input id="patStart" type="text" placeholder="Starts with…" />
+            <input id="patContain" type="text" placeholder="Contains…" />
+            <input id="patEnd" type="text" placeholder="Ends with…" />
+          </div>
+          <div class="muted">Leave blank if not needed. Case-insensitive.</div>
+        </div>
+        
       </div>
       <div class="actions">
         <button id="btnGen" class="primary">Generate</button>
