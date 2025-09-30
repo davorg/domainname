@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7bd88f"/>
+      <stop offset="1" stop-color="#78a9ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="20" fill="#131720"/>
+  <!-- stylised 'domain dot' + name spark -->
+  <circle cx="28" cy="68" r="10" fill="url(#g)"/>
+  <path d="M54 22c-10 0-18 8-18 18s8 18 18 18c3 0 6-.7 8.6-2l8.9 8.9a4 4 0 0 0 5.7-5.7L68.3 50c1.3-2.6 2-5.6 2-8.7 0-10-8-19-18.3-19zM54 30a10 10 0 1 1 0 20a10 10 0 0 1 0-20z" fill="url(#g)"/>
+</svg>
