@@ -239,7 +239,7 @@ function render(list){
 
 function registrarUrl(name){
   const q = encodeURIComponent(name);
-  return `https://www.123-reg.co.uk/domain-names/search/?domain=${q}`;
+  return `https://www.namecheap.com/domains/registration/results/?domain=${q}`;
 }
 
 function exportCSV(){
